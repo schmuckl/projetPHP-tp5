@@ -8,4 +8,10 @@ git push origin master --> Push le répertoire
 Pour récupérer les fichiers :
 git clone LIEN A RECUPERER (une fois)
 git pull
-  }
+
+
+COMMANDES :
+git add .
+git pull
+git commit -m "MESSAGE"
+git push

@@ -39,7 +39,7 @@ class Nouvelle {
     if ($item->getElementsByTagName('enclosure')->length != 0) {
       $this->urlImage = $item->getElementsByTagName('enclosure')->item(0);
     } else {
-      this->urlImage = "";
+      $this->urlImage = "";
     }
 
 }
