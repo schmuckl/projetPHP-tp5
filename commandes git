@@ -1,0 +1,4 @@
+Commandes à exécuter :
+git add . --> Ajoute le dossier
+git commit -m "MESSAGE" --> Commit avec un message personnalisable
+git push origin master --> Push le répertoire
