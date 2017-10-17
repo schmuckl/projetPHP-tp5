@@ -35,8 +35,13 @@ class Nouvelle {
     $this->date = $item->getElementsByTagName('pubDate')->item(0)->textContent;
     $this->description = $item->getElementsByTagName('description')->item(0)->textContent;
     $this->url = $item->getElementsByTagName('link')->item(0)->textContent;
-    $this->urlImage = $item->getElementsByTagName('enclosure');
-  }
+
+    if ($item->getElementsByTagName('enclosure')->length != 0) {
+      $this->urlImage = $item->getElementsByTagName('enclosure')->item(0);
+    } else {
+      this->urlImage = "";
+    }
+
 }
 
 ?>

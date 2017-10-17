@@ -8,3 +8,4 @@ git push origin master --> Push le répertoire
 Pour récupérer les fichiers :
 git clone LIEN A RECUPERER (une fois)
 git pull
+  }
