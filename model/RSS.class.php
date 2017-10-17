@@ -28,7 +28,31 @@ class RSS {
   function getNouvelles() {
     return $this->nouvelles;
   }
-  
+
+  // Récupère un flux à partir de son URL
+  function update() {
+    // Cree un objet pour accueillir le contenu du RSS : un document XML
+    $doc = new DOMDocument;
+
+    //Telecharge le fichier XML dans $rss
+    $doc->load($this->url);
+
+    // Recupère la liste (DOMNodeList) de tous les elements de l'arbre 'title'
+    $nodeList = $doc->getElementsByTagName('title');
+
+    // Met à jour le titre dans l'objet
+    $this->titre = $nodeList->item(0)->textContent;
+
+    // Mets à jour date avec la date de l'arbre
+    //$this->date = $doc->getElementsByTagName('date')->item(0)->textContent;
+
+    // Mets à jour date avec la date actuelle
+    $this->date = date('l jS \of F Y h:i:s A');
+
+    // On récupère la liste des nouvelles
+    $this->nouvelles = $doc->getElementsByTagName('item');
+  }
+
 }
 
 ?>
