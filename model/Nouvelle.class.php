@@ -29,22 +29,13 @@ class Nouvelle {
     return $this->urlImage;
   }
 
-
-  function __construct(array $tab) {
-    $tab->titre = $titre;
-    $tab->date = $date;
-    $tab->description = $description;
-    $tab->url = $url;
-    $tab->urlImage = $urlImage;
-  }
-
   // Charge les attributs de la nouvelle avec les informations du noeud XML
   function update(DOMElement $item) {
-    $titre = $item->getElementsByTagName('title')->item(0)->textContent;
-    $date = $item->getElementsByTagName('pubDate')->item(0)->textContent;
-    $description = $item->getElementsByTagName('description')->item(0)->textContent;
-    $url = $item->getElementsByTagName('link')->item(0)->textContent;
-    $urlImage = $item->getElementsByTagName('enclosure');
+    $this->titre = $item->getElementsByTagName('title')->item(0)->textContent;
+    $this->date = $item->getElementsByTagName('pubDate')->item(0)->textContent;
+    $this->description = $item->getElementsByTagName('description')->item(0)->textContent;
+    $this->url = $item->getElementsByTagName('link')->item(0)->textContent;
+    $this->urlImage = $item->getElementsByTagName('enclosure');
   }
 }
 

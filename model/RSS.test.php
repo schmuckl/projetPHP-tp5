@@ -10,4 +10,10 @@
 
   // Affiche le titre
   echo $rss->getTitre()."\n";
+
+  // Affiche le titre et la description de toutes les nouvelles
+  foreach($rss->getNouvelles() as $nouvelle) {
+    echo ' '.$nouvelle->getTitre().' '.$nouvelle->getDate()."\n";
+    echo '  '.$nouvelle->getDescription()."\n";
+  }
 ?>

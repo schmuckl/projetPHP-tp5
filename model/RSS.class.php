@@ -1,4 +1,5 @@
 <?php
+include "Nouvelle.class.php";
 
 class RSS {
   private $titre; // Titre du flux
@@ -43,14 +44,20 @@ class RSS {
     // Met à jour le titre dans l'objet
     $this->titre = $nodeList->item(0)->textContent;
 
-    // Mets à jour date avec la date de l'arbre
-    //$this->date = $doc->getElementsByTagName('date')->item(0)->textContent;
-
     // Mets à jour date avec la date actuelle
     $this->date = date('l jS \of F Y h:i:s A');
 
-    // On récupère la liste des nouvelles
-    $this->nouvelles = $doc->getElementsByTagName('item');
+    // Récupère tous les items du flux RSS
+    foreach ($doc->getElementsByTagName('item') as $node) {
+      // Création d'un objet Nouvelle à conserver dans la liste $this->nouvelles
+      $nouvelle = new Nouvelle();
+
+      // Modifie cette nouvelle avec l'information téléchargée
+      $nouvelle->update($node);
+
+      // On rajoute cette nouvelle à la liste de nouvelles
+      $this->nouvelles[] = $nouvelle;
+    }
   }
 
 }
