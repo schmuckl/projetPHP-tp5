@@ -47,6 +47,9 @@ class RSS {
     // Mets à jour date avec la date actuelle
     $this->date = date('l jS \of F Y h:i:s A');
 
+    // Identifiant pour le nom de l'image
+    $idImage = 1;
+
     // Récupère tous les items du flux RSS
     foreach ($doc->getElementsByTagName('item') as $node) {
       // Création d'un objet Nouvelle à conserver dans la liste $this->nouvelles
@@ -57,6 +60,10 @@ class RSS {
 
       // On rajoute cette nouvelle à la liste de nouvelles
       $this->nouvelles[] = $nouvelle;
+
+      // Télécharge l'image
+      $nouvelle->downloadImage($node, $idImage);
+      $idImage += 1;
     }
   }
 
