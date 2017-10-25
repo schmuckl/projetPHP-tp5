@@ -3,7 +3,8 @@
   require_once('RSS.class.php');
 
   // Une instance de RSS
-  $rss = new RSS('http://www.lemonde.fr/m-actu/rss_full.xml');
+  $rss = new RSS();
+  $rss->setUrl('http://www.lemonde.fr/m-actu/rss_full.xml');
 
   // Charge le flux depuis le réseau
   $rss->update();

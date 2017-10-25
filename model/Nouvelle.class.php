@@ -9,7 +9,6 @@ class Nouvelle {
   private $image;       // chemin relatif vers l'image
 
   // Fonctions getter
-
   function getTitre() {
     return $this->titre;
   }
@@ -53,7 +52,6 @@ class Nouvelle {
     // On tente d'accéder à l'attribut 'url'
     $nodeUrl = $item->getElementsByTagName('enclosure')->item(0)->attributes->getNamedItem('url');
     if ($nodeUrl != NULL) {
-      echo "aaze";
       // L'attribut url a été trouvé : on récupère sa valeur, c'est l'URL de l'image
       $url = $nodeUrl->nodeValue;
       // On construit un nom local pour cette image : on suppose que $imageId contient un identifiant unique

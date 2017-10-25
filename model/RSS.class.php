@@ -1,5 +1,6 @@
 <?php
-include "Nouvelle.class.php";
+require_once "Nouvelle.class.php";
+require_once "DAO.class.php";
 
 class RSS {
   private $titre; // Titre du flux
@@ -8,12 +9,18 @@ class RSS {
   private $nouvelles; // Liste des nouvelles du flux dans un tableau d'objets Nouvelle
 
   // Contructeur
-  function __construct($url) {
+  //function __construct() {
+  //}
+
+  function setUrl($url) {
     $this->url = $url;
   }
 
-  // Fonctions getter
+  function setTitre($titre) {
+    $this->titre = $titre;
+  }
 
+  // Fonctions getter
   function getTitre() {
     return $this->titre;
   }
@@ -50,23 +57,30 @@ class RSS {
     // Identifiant pour le nom de l'image
     $idImage = 1;
 
+    // On créé un objet DAO pour accéder à la BD et on récupère
+    // l'identifiant du RSS
+    $dao = new DAO();
+    $q = $dao->db()->prepare("SELECT id FROM RSS WHERE url = ?");
+    $q->execute(array($this->getUrl()));
+    $id = $q->fetch(PDO::FETCH_COLUMN, 0);
+    var_dump($id);
+
     // Récupère tous les items du flux RSS
     foreach ($doc->getElementsByTagName('item') as $node) {
       // Création d'un objet Nouvelle à conserver dans la liste $this->nouvelles
       $nouvelle = new Nouvelle();
-
       // Modifie cette nouvelle avec l'information téléchargée
       $nouvelle->update($node);
-
       // On rajoute cette nouvelle à la liste de nouvelles
       $this->nouvelles[] = $nouvelle;
-
       // Télécharge l'image
       $nouvelle->downloadImage($node, $idImage);
       $idImage += 1;
+
+      // Ajouter dans la BD ?
+
     }
   }
-
 }
 
 ?>
