@@ -8,16 +8,15 @@ $rss->setUrl('http://www.lemonde.fr/m-actu/rss_full.xml');
 
 $dao = new DAO();
 // On rajoute le flux dans la BD
-var_dump($dao->createRSS($rss->getUrl()));
+$dao->createRSS($rss->getUrl());
 // On met à jour ses attributs
-//$rss->update();
-//$dao->updateRSS($rss);
+$rss->update();
+$dao->updateRSS($rss);
 
 $q = $dao->db()->prepare('SELECT * FROM RSS');
 $q->execute();
 
 $tab = $q->fetchAll(PDO::FETCH_CLASS, "RSS");
-var_dump($tab);
 
 include('../view/afficher_flux.view.php');
 
