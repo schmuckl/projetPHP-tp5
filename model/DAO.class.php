@@ -32,7 +32,6 @@ class DAO {
       try {
         $q = "INSERT INTO RSS (url) VALUES ('$url')";
         $r = $this->db->exec($q);
-        var_dump($r);
         if ($r == 0) {
           die("createRSS error: no rss inserted\n");
         }
