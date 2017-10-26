@@ -12,7 +12,7 @@ class DAO {
 
   // Ouverture de la base de donnée
   function __construct() {
-    $dsn = 'sqlite:data/rss.db'; // Data source name
+    $dsn = 'sqlite:/users/info/etu-s3/schmuckl/public_html/progWeb/projetPHP-tp5/model/data/rss.db'; // Data source name
     try {
       $this->db = new PDO($dsn);
     } catch (PDOException $e) {
@@ -28,10 +28,13 @@ class DAO {
   // Si le flux existe déjà on ne le créé pas
   function createRSS($url) {
     $rss = $this->readRSSfromURL($url);
+    var_dump($rss);
     if ($rss == NULL) {
       try {
         $q = "INSERT INTO RSS (url) VALUES ('$url')";
+        var_dump($q);
         $r = $this->db->exec($q);
+        var_dump($r);
         if ($r == 0) {
           die("createRSS error: no rss inserted\n");
         }

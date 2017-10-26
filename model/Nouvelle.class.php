@@ -60,7 +60,7 @@ class Nouvelle {
       // L'attribut url a été trouvé : on récupère sa valeur, c'est l'URL de l'image
       $url = $nodeUrl->nodeValue;
       // On construit un nom local pour cette image : on suppose que $imageId contient un identifiant unique
-      $this->image = 'images/'.$imageId.'.jpg';
+      $this->image = '../model/images/'.$imageId.'.jpg';
       // On télécharge l'image à l'aide de son URL, et on la copie localement.
       file_put_contents($this->image, file_get_contents($url));
     }
