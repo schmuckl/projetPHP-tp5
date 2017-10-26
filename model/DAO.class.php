@@ -76,12 +76,12 @@ class DAO {
 
   // Acces à une nouvelle à partir de son titre et l'ID du flux
   function readNouvellefromTitre($titre,$RSS_id) {
-    $q = $db->prepare("SELECT * FROM nouvelle WHERE titre=:titre AND RSS_id=:RSS_id");
+    $q = $this->db->prepare("SELECT * FROM nouvelle WHERE titre=:titre AND RSS_id=:RSS_id");
     $q->execute(array($titre,$RSS_id));
 
     // On retourne l'objet trouvé
     $result = $q->fetchAll(PDO::FETCH_CLASS, "nouvelle");
-    return $result[0];
+    return $result;
   }
 
   // Crée une nouvelle dans la base à partir d'un objet nouvelle
@@ -90,7 +90,7 @@ class DAO {
     $nouvelle = $this->readNouvellefromTitre($n->getTitre(), $RSS_id);
     if ($nouvelle == NULL) {
       try {
-        $q = "INSERT INTO nouvelle (date, titre, description, url, image, RSS_id) values ('$n->getDate()', '$n->getTitre()', '$n->getDescription()', '$n->getUrl()', '$n->getImage()', '$RSS_id')";
+        $q = "INSERT INTO nouvelle (date, titre, description, url, image, RSS_id) values ('" . $n->getDate() . "', '" . $n->getTitre() . "', '" . $n->getDescription() . "', '" . $n->getUrl() . "', '" . $n->getImage() . "', '" . $RSS_id . "')";
         $r = $this->db->exec($q);
         if ($r == 0) {
           die("createNouvelle error: no nouvelle inserted\n");

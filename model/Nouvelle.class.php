@@ -8,6 +8,11 @@ class Nouvelle {
   private $urlImage;    // URL vers l'image
   private $image;       // chemin relatif vers l'image
 
+  // Pour tests DAO uniquement
+  function setTitre($titre) {
+    $this->titre = $titre;
+  }
+
   // Fonctions getter
   function getTitre() {
     return $this->titre;

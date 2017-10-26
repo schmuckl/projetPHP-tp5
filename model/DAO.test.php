@@ -17,16 +17,13 @@ if ($rss == NULL) {
 } else {
   echo $url." est déjà entré : ";
   // Test de l'update
-  var_dump($rss);
+  /*var_dump($rss);
   echo "on le modifie : ";
   $rss->setTitre('ntmbeg');
   $dao->updateRSS($rss);
-  var_dump($dao->readRSSfromURL($url));
+  var_dump($dao->readRSSfromURL($url));*/
 }
 
 // Mise à jour du flux
 $rss->update();
-
-// Test méthodes CRUD Nouvelle
-//$nouvelle = $dao->readNouvellefromTitre($)
 ?>

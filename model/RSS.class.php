@@ -38,6 +38,7 @@ class RSS {
   }
 
   // Récupère un flux à partir de son URL
+  // Rajout le flux dans la BD si besoin (non déjà existant) et ses nouvelles si besoin (non déjà existantes)
   function update() {
     // Cree un objet pour accueillir le contenu du RSS : un document XML
     $doc = new DOMDocument;
@@ -57,15 +58,18 @@ class RSS {
     // Identifiant pour le nom de l'image
     $idImage = 1;
 
-    // On créé un objet DAO pour accéder à la BD et on récupère
-    // l'identifiant du RSS
+    // On créé un objet DAO pour accéder à la BD
     $dao = new DAO();
-    $q = $dao->db()->prepare("SELECT id FROM RSS WHERE url = ?");
-    $q->execute(array($this->getUrl()));
-    $id = $q->fetch(PDO::FETCH_COLUMN, 0);
-    var_dump($id);
 
-    // Récupère tous les items du flux RSS
+    // Créé le flux dans la BD ou le récupère si déjà existant
+    $rss = $dao->createRSS($this->getUrl());
+
+    // $id contient l'id du flux donc le RSS_id des nouvelles qu'il contient
+    $q = $dao->db()->prepare("SELECT id FROM RSS WHERE url = ?");
+    $q->execute(array($rss->getUrl()));
+    $id = $q->fetch(PDO::FETCH_COLUMN, 0);
+
+    // Récupère tous les items du flux RSS et les ajoute dans la BD si ils n'y sont pas déjà
     foreach ($doc->getElementsByTagName('item') as $node) {
       // Création d'un objet Nouvelle à conserver dans la liste $this->nouvelles
       $nouvelle = new Nouvelle();
@@ -77,8 +81,8 @@ class RSS {
       $nouvelle->downloadImage($node, $idImage);
       $idImage += 1;
 
-      // Ajouter dans la BD ?
-
+      // Ajoute la nouvelle dans la BD
+      $dao->createNouvelle($nouvelle, $id);
     }
   }
 }
