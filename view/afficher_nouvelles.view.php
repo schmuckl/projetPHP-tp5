@@ -5,9 +5,15 @@
     <title>Nouvelles</title>
   </head>
   <body>
-    <p style="text-align:right;">Recherche par mots clés
-    <input type="text" name="motcle">
-    <input type="submit" name="recherche" value="Recherche">
-    </p>
+        <?php foreach ($nouvelles as $nouvelle) { ?>
+            <!-- Pour le moment on affiche juste tout sans lien !-->
+              <h4><?= $nouvelle->getTitre() ?></h5>
+              <h6><?= $nouvelle->getDate() ?></h6>
+              <p><?=$nouvelle->getDescription()?></p>
+              <img src="<?= $nouvelle->getImage()?>" alt="riplimage">
+              <br>
+              <a href="<?= $nouvelle->getUrl()?>"> Article complet </a>
+            <br><br><br><br>
+        <?php } ?>
   </body>
 </html>

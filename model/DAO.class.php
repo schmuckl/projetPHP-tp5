@@ -60,10 +60,8 @@ class DAO {
     // Met à jour uniquement le titre et la date
     $titre = $this->db->quote($rss->getTitre());
     $q = "UPDATE RSS SET titre=$titre, date='".$rss->getDate()."' WHERE url='".$rss->getUrl()."'";
-    var_dump($q);
     try {
       $r = $this->db->exec($q);
-      var_dump($r);
       if ($r == 0) {
         die("updateRSS error: no rss updated\n");
       }
@@ -105,6 +103,16 @@ class DAO {
       // Retourne l'objet existant
       return $nouvelle;
     }
+  }
+
+  // Retourne toutes les nouvelles d'un flux (toutes les nouvelles ayant un meme RSS_ID)
+  function readNouvelleFromFlux($RSS_id) {
+    $q = $this->db->prepare("SELECT * FROM nouvelle WHERE RSS_id=?");
+    $q->execute(array($RSS_id));
+
+    // On retourne la liste des nouvelles trouvées
+    $result = $q->fetchAll(PDO::FETCH_CLASS, "nouvelle");
+    return $result;
   }
 }
 ?>
