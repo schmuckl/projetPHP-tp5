@@ -55,18 +55,20 @@ class RSS {
     // Mets à jour date avec la date actuelle
     $this->date = date('l jS \of F Y h:i:s A');
 
-    // Identifiant pour le nom de l'image
-    $idImage = 1;
-
     // On créé un objet DAO pour accéder à la BD
     $dao = new DAO();
 
-    // Créé le flux dans la BD ou le récupère si déjà existant
+    // Gestion nom images
+    $q = $dao->db()->prepare("SELECT max(id) FROM nouvelle");
+    $q->execute();
+    $idImage = $q->fetch(PDO::FETCH_COLUMN, 0)+1;
+
+    // On rajoutes les articles du flux
     $rss = $dao->createRSS($this->getUrl());
 
     // $id contient l'id du flux donc le RSS_id des nouvelles qu'il contient
-    $q = $dao->db()->prepare("SELECT id FROM RSS WHERE url = ?");
-    $q->execute(array($rss->getUrl()));
+    $q = $dao->db()->prepare("SELECT id FROM RSS WHERE url = :url");
+    $q->execute(array($this->getUrl()));
     $id = $q->fetch(PDO::FETCH_COLUMN, 0);
 
     // Récupère tous les items du flux RSS et les ajoute dans la BD si ils n'y sont pas déjà
@@ -77,9 +79,15 @@ class RSS {
       $nouvelle->update($node);
       // On rajoute cette nouvelle à la liste de nouvelles
       $this->nouvelles[] = $nouvelle;
-      // Télécharge l'image
-      $nouvelle->downloadImage($node, $idImage);
-      $idImage += 1;
+
+      // Si il y a une image alors on la télécharge
+      if ($nouvelle->getUrlImage() != '') {
+        $nom = substr($this->titre, 0, 9). "_" .$idImage;
+        // Récuperer le numéro d'ID dans la BD
+        // Peu importe si il est partagé entre tous les flux
+        $nouvelle->downloadImage($node, $nom);
+        $idImage += 1;
+      }
 
       // Ajoute la nouvelle dans la BD
       $dao->createNouvelle($nouvelle, $id);

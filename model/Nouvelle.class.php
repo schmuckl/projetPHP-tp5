@@ -52,7 +52,7 @@ class Nouvelle {
     }
   }
 
-  function downloadImage(DOMElement $item, $imageId) {
+  function downloadImage(DOMElement $item, $nom) {
     // On suppose que $item est un objet sur le noeud 'enclosure' d'un flux RSS
     // On tente d'accéder à l'attribut 'url'
     $nodeUrl = $item->getElementsByTagName('enclosure')->item(0)->attributes->getNamedItem('url');
@@ -60,7 +60,7 @@ class Nouvelle {
       // L'attribut url a été trouvé : on récupère sa valeur, c'est l'URL de l'image
       $url = $nodeUrl->nodeValue;
       // On construit un nom local pour cette image : on suppose que $imageId contient un identifiant unique
-      $this->image = '../model/images/'.$imageId.'.jpg';
+      $this->image = '../model/images/'.$nom.'.jpg';
       // On télécharge l'image à l'aide de son URL, et on la copie localement.
       file_put_contents($this->image, file_get_contents($url));
     }
