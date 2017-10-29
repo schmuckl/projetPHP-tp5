@@ -66,10 +66,10 @@ class RSS {
     // On rajoutes les articles du flux
     $rss = $dao->createRSS($this->getUrl());
 
-    // $id contient l'id du flux donc le RSS_id des nouvelles qu'il contient
+    // $RSS_id contient l'id du flux donc le RSS_id des nouvelles qu'il contient
     $q = $dao->db()->prepare("SELECT id FROM RSS WHERE url = :url");
     $q->execute(array($this->getUrl()));
-    $id = $q->fetch(PDO::FETCH_COLUMN, 0);
+    $RSS_id = $q->fetch(PDO::FETCH_COLUMN, 0);
 
     // Récupère tous les items du flux RSS et les ajoute dans la BD si ils n'y sont pas déjà
     foreach ($doc->getElementsByTagName('item') as $node) {
@@ -77,20 +77,41 @@ class RSS {
       $nouvelle = new Nouvelle();
       // Modifie cette nouvelle avec l'information téléchargée
       $nouvelle->update($node);
-      // On rajoute cette nouvelle à la liste de nouvelles
-      $this->nouvelles[] = $nouvelle;
+	
+      // Si le flux n'est pas vide alors on vérifie que la nouvelle n'y est pas déjà, sinon on ne la re-rajoute pas
+      if ($this->getNouvelles() != NULL) {
+	      if (!(in_array($nouvelle,$this->nouvelles))) {
+		      // On rajoute cette nouvelle à la liste de nouvelles
+		      $this->nouvelles[] = $nouvelle;
 
-      // Si il y a une image alors on la télécharge
-      if ($nouvelle->getUrlImage() != '') {
-        $nom = substr($this->titre, 0, 9). "_" .$idImage;
-        // Récuperer le numéro d'ID dans la BD
-        // Peu importe si il est partagé entre tous les flux
-        $nouvelle->downloadImage($node, $nom);
-        $idImage += 1;
+		      // Si il y a une image alors on la télécharge
+		      if ($nouvelle->getUrlImage() != '') {
+			$nom = substr($this->titre, 0, 9). "_" .$idImage;
+			// Récuperer le numéro d'ID dans la BD
+			// Peu importe si il est partagé entre tous les flux
+			$nouvelle->downloadImage($node, $nom);
+			$idImage += 1;
+		      }
+
+		      // Ajoute la nouvelle dans la BD
+		      $dao->createNouvelle($nouvelle, $RSS_id);
+	      }
+      } else { // Si le flux est vide on rajoute la nouvelle tout simplement
+	      // On rajoute cette nouvelle à la liste de nouvelles
+	      $this->nouvelles[] = $nouvelle;
+
+	      // Si il y a une image alors on la télécharge
+	      if ($nouvelle->getUrlImage() != '') {
+		$nom = substr($this->titre, 0, 9). "_" .$idImage;
+		// Récuperer le numéro d'ID dans la BD
+		// Peu importe si il est partagé entre tous les flux
+		$nouvelle->downloadImage($node, $nom);
+		$idImage += 1;
+	      }
+
+	      // Ajoute la nouvelle dans la BD
+	      $dao->createNouvelle($nouvelle, $RSS_id);
       }
-
-      // Ajoute la nouvelle dans la BD
-      $dao->createNouvelle($nouvelle, $id);
     }
   }
 }

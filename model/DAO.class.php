@@ -109,7 +109,7 @@ class DAO {
     return $result;
   }
 
-  // Acces à une nouvelle à partir de son id et de l'ID du flux
+  // Acces à une nouvelle à partir de son id
   function readNouvelleFromId($id) {
     $q = $this->db->prepare("SELECT * FROM nouvelle WHERE id=:id");
     $q->execute(array($id));

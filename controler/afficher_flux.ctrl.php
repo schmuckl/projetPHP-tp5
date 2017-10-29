@@ -20,27 +20,13 @@
   $figaro->setUrl('http://www.lefigaro.fr/rss/figaro_sante.xml');
   $flux[] = $figaro;
 
-  // On actualise le(s) flux dans la BD
+  // On créé tous le(s) flux dans la BD (ne fait rien si déjà créé)
+  // Et on met à jour ses attributs
   foreach ($flux as $flu) {
     $dao->createRSS($flu->getUrl());
+    $flu->update();
+    $dao->updateRSS($flu);
   }
-
-  // On met à jour ses attributs
-  // A
-  // DEPLACER,
-  // CHARGER
-  // QUAND
-  // CLIQUE
-  // UNIQUEMENT
-  $leMonde->update();
-  $dao->updateRSS($leMonde);
-  $figaro->update();
-  $dao->updateRSS($figaro);
-
-  // On récupère tous les flux RSS à afficher dans afficher_flux.view.php
-  $q = $dao->db()->prepare('SELECT * FROM RSS');
-  $q->execute();
-  $tabRss = $q->fetchAll(PDO::FETCH_CLASS, "RSS");
 
   // On récupère un tab d'id
   $q = $dao->db()->prepare('SELECT id FROM RSS');

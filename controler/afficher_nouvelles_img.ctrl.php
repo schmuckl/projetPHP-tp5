@@ -1,6 +1,8 @@
 <?php
   require_once('../model/DAO.class.php');
 
+  // Aucun sens si pas d'images comme dans Le Figaro
+
   $dao = new DAO();
 
   $RSS_id = $_GET["RSS_id"];

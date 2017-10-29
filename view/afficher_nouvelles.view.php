@@ -5,7 +5,11 @@
     <title>Nouvelles</title>
   </head>
   <body>
-    <a href="../controler/afficher_nouvelles_img.ctrl.php?RSS_id=<?=$RSS_id?>">Images</a>
+    <h1> <?= $titre?> </h1>
+    <form action="../controler/afficher_flux.ctrl.php">
+	<input type="submit" value="Retour à l'acceuil">
+    </form>
+    <h3><a href="../controler/afficher_nouvelles_img.ctrl.php?RSS_id=<?=$RSS_id?>">Images</a></h3>
 
         <?php foreach ($nouvelles as $nouvelle) { ?>
               <h4><?= $nouvelle->getTitre() ?></h5>
@@ -21,6 +25,3 @@
         <?php } ?>
   </body>
 </html>
-<form action="../controler/afficher_nouvelles_img.ctrl.php?RSS_id=<?=$RSS_id?>" style="text-align:right;">
-  <input type="submit" value="Images seulement" >
-</form>

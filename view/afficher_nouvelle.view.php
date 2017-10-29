@@ -5,6 +5,9 @@
     <title></title>
   </head>
   <body>
+    <form action="../controler/afficher_flux.ctrl.php">
+	<input type="submit" value="Retour à l'acceuil">
+    </form>
     <h4><?= $nouvelle->getTitre() ?></h5>
     <h6><?= $nouvelle->getDate() ?></h6>
     <p><?=$nouvelle->getDescription()?></p>
