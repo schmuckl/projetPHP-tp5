@@ -1,0 +1,41 @@
+body {
+  color: black;
+  background-color:#f1f0f0;
+}
+
+.nav-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.nav-item {
+  width: 180px;
+  text-decoration: none;
+  padding: 12px;
+  color: white;
+  background-color: darkgray;
+  border-radius: 5px;
+  margin: 0 20px;
+  text-align: center;
+  transition: background-color 1s ease-in-out;
+  margin : 10px;
+}
+
+.nav-item:hover {
+  background-color: gray; 
+}
+
+.orange {
+    background-color: #fdc07f;
+    margin: 10px;
+}
+
+.ligne {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.button {
+  width: 180px;
+}

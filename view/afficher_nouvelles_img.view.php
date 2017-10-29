@@ -3,13 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Images</title>
+    <link rel="stylesheet" href="../CSS/bootstrap.min.css">
+    <link rel="stylesheet" href="../CSS/style.css">
   </head>
   <body>
-    <h1>Images du flux</h1>
-    <form action="../controler/afficher_flux.ctrl.php">
-	<input type="submit" value="Retour à l'acceuil">
-    </form>
-    <h3><a href="../controler/afficher_nouvelles.ctrl.php?RSS_id=<?=$RSS_id?>">Affichage normal</a></h3>
+
+    <div class="container-fluid orange ligne">
+      <h1>Images du flux</h1>
+
+      <div class="nav-wrapper">
+      <a 
+       href="../controler/afficher_flux.ctrl.php" 
+       class="nav-item">
+        Retour à l'acceuil
+      </a>
+
+      <div class="nav-wrapper">
+      <a 
+       href="../controler/afficher_nouvelles.ctrl.php?RSS_id=<?=$RSS_id?>" 
+       class="nav-item">
+        Affichage normal
+      </a>
+      
+    </div>
+
     <br/>
     <?php
     $i = 0;
