@@ -7,20 +7,26 @@
     <link rel="stylesheet" href="../CSS/style.css">
   </head>
   <body>
-  <div class="container-fluid orange ligne">
+  <div class="container-fluid orange">
     <h1 style="text-align:center;">Flux</h1>
     <br>
-    <h5 style="text-align:center;"> Affichage des différents flux d'informations </h5><br>
+    <h4 style="text-align:center;">
+      Affichage des différents flux d'informations
+    </h4><br>
   </div>
-    <ul>
+    <ol class="rounded-list">
       <?php
       $i = 0;
       while ($i<sizeof($tabId)) { ?>
         <!-- changer en bouton ==> plus propre !-->
-        <li class="ligne"> <a href="<?= "afficher_nouvelles.ctrl.php?RSS_id=".$tabId[$i]?>"> <?= $flux[$i]->getTitre()?> </a> <br> </li>
+        <li class="ligne">
+          <a href="<?= "afficher_nouvelles.ctrl.php?RSS_id=".$tabId[$i]?>">
+            <?= $flux[$i]->getTitre()?>
+          </a>
+        </li>
       <?php $i = $i + 1;
       } ?>
-    </ul>
+    </ol>
     <br>
   </body>
 </html>

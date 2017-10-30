@@ -5,8 +5,8 @@ body {
 
 .nav-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center; 
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .nav-item {
@@ -23,12 +23,32 @@ body {
 }
 
 .nav-item:hover {
-  background-color: gray; 
+  background-color: gray;
+}
+
+.nav-item2 {
+  width:160px;
+  text-decoration: none;
+  padding:10px;
+  color: white;
+  background-color: #FF675E;
+  border-radius: 5px;
+  text-aligne
+  center;
+  transition: background-color 1s ease-in-out;
+}
+
+.nav-item2:hover {
+  background-color: darkred;
+}
+
+.nav-item3 {
+
 }
 
 .orange {
     background-color: #fdc07f;
-    margin: 10px;
+    padding: 2px;
 }
 
 .ligne {
@@ -36,6 +56,77 @@ body {
   margin-bottom: 20px;
 }
 
-.button {
-  width: 180px;
+.uneNouvelle {
+  border-style: double;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+ol{
+  counter-reset: li;
+  list-style: none;
+  *list-style: decimal;
+  font: 15px 'trebuchet MS', 'lucida sans';
+  padding: 0;
+  margin-bottom: 4em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+
+
+.rounded-list a{
+  position: relative;
+  display: block;
+  padding: .4em .4em .4em 2em;
+  *padding: .4em;
+  background: #ddd;
+  color: #444;
+  text-decoration: none;
+  border-radius: .3em;
+  transition: all .3s ease-out;
+}
+
+.rounded-list a:hover{
+  background: #eee;
+}
+
+.rounded-list a:hover:before{
+  transform: rotate(360deg);
+}
+
+.rounded-list a:before{
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  left: -1.3em;
+  top: 50%;
+  margin-top: -1.3em;
+  background: #87ceeb;
+  height: 2em;
+  width: 2em;
+  line-height: 2em;
+  border: .3em solid #fff;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 2em;
+  transition: all .3s ease-out;
+}
+
+
+#droite, #gauche {
+  display: inline-block;
+  vertical-align: top;
+  margin-left:5%;
+  margin-right:5%;
+}
+
+#gauche {
+  width: 40%;
+}
+
+#droite {
+  width:39%;
+}
+
+#droite img {
+  max-width: 100%;
 }
