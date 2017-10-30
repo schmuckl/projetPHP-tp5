@@ -115,16 +115,16 @@ ol{
 #droite, #gauche {
   display: inline-block;
   vertical-align: top;
-  margin-left:5%;
-  margin-right:5%;
+  margin-left:2.5%;
+  margin-right:2.5%;
 }
 
 #gauche {
-  width: 40%;
+  width: 45%;
 }
 
 #droite {
-  width:39%;
+  width:34%;
 }
 
 #droite img {
